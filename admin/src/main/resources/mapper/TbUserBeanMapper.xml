@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.whmy.adminfast.admin.mapper.TbUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="fun.whmy.adminfast.admin.model.bean.admin.TbUserBean">
+        <id column="USER_ID" property="userId" />
+        <result column="USER_NAME" property="userName" />
+        <result column="PASSWORD" property="password" />
+        <result column="PHONE" property="phone" />
+        <result column="EMAIL" property="email" />
+        <result column="ROLE" property="role" />
+        <result column="TOKEN" property="token" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="REMARK" property="remark" />
+        <result column="IS_DELETED" property="isDeleted" />
+        <result column="CREATE_ID" property="createId" />
+        <result column="UPDATE_ID" property="updateId" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+    <select id="readExtendList" resultType="fun.whmy.adminfast.admin.model.bean.admin.TbUserBeanExtend">
+        select u.USER_ID,u.USER_NAME,u.PASSWORD,u.PHONE,u.EMAIL,u.ROLE,u.TOKEN,u.COMPANY_ID,u.REMARK,u.IS_DELETED,u.CREATE_TIME,u.UPDATE_TIME,c.name as companyName
+        from tb_user u
+        left join tb_user_company c on c.id = u.COMPANY_ID
+        where 1=1
+        <if test="companyId != 0">
+            u.COMPANY_ID = #{companyId}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND u.USER_NAME LIKE CONCAT('%', #{keyword}, '%') ESCAPE '/'
+        </if>
+        ORDER BY u.UPDATE_TIME DESC
+    </select>
+</mapper>

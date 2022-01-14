@@ -1,0 +1,43 @@
+server:
+  port: 16810
+spring:
+  profiles:
+    active: @activatedProperties@
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  datasource:
+    name: mysql_catchgo
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    jedis:
+      pool:
+        max-idle: 20
+        max-wait: 2000
+        max-total: 30
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+  mvc:
+    async:
+      request-timeout: 120000
+mybatis:
+  mapper-locations: classpath*:mybatis/mysql/**/*Mapper.xml
+  type-aliases-package: fun.whmy.count.model.bean
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: token
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 2592000
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: false
+  is-read-body: false
+  is-read-cookie: false
+  is-read-head: true
+  is-print: false
+

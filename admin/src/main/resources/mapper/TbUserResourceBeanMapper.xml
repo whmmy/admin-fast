@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.whmy.adminfast.admin.mapper.TbUserResourceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="fun.whmy.adminfast.admin.model.bean.admin.TbUserResourceBean">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="description" property="description"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="type" property="type"/>
+        <result column="sort" property="sort"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <select id="getResourceList" resultType="String">
+        SELECT
+            ur.code
+        FROM
+            tb_user_role_relation ar
+                LEFT JOIN tb_user_role r ON ar.role_id = r.id
+                LEFT JOIN tb_user_role_resource_relation rrr ON r.id = rrr.role_id
+                LEFT JOIN tb_user_resource ur ON ur.id = rrr.resource_id
+        WHERE
+            ar.user_id = #{userId}
+            AND r.status = 1
+          AND ur.isdelete = 0
+        GROUP BY
+            ur.id
+    </select>
+
+    <select id="getAllResourceList" resultType="String">
+        SELECT
+            ur.code
+        FROM
+            tb_user_resource ur
+        WHERE
+          ur.isdelete = 0
+        GROUP BY
+            ur.id
+    </select>
+
+    <select id="getResourceBeanList" resultType="fun.whmy.adminfast.admin.model.bean.admin.TbUserResourceBean">
+        SELECT
+            ur.id,
+            ur.name,
+            ur.code,
+            ur.description,
+            ur.category_id,
+            ur.type,
+            ur.sort
+         FROM
+            tb_user_role_relation ar
+                LEFT JOIN tb_user_role r ON ar.role_id = r.id
+                LEFT JOIN tb_user_role_resource_relation rrr ON r.id = rrr.role_id
+                LEFT JOIN tb_user_resource ur ON ur.id = rrr.resource_id
+        WHERE
+            ar.user_id = #{userId}
+            AND r.status = 1
+          AND ur.isdelete = 0
+        GROUP BY
+            ur.id
+    </select>
+
+    <select id="getResourceListByRoleId" resultType="fun.whmy.adminfast.admin.model.bean.admin.TbUserResourceBean">
+        SELECT
+            r.id,
+            r.create_time,
+            r.`name`,
+            r.code,
+            r.description,
+            r.category_id
+        FROM
+            tb_user_role_resource_relation rrr
+            LEFT JOIN tb_user_resource r ON rrr.resource_id = r.id
+        WHERE
+            rrr.role_id = #{roleId}
+        GROUP BY
+            r.id
+    </select>
+</mapper>
