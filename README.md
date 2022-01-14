@@ -133,7 +133,7 @@ dashboard页面
 公司管理
 ![managerCompany](doc/img/managerCompany.png)
 #### 打个小广告
-> 自己开发的打牌计分小程序，大家可以扫码支持一波
+> 自己开发的打牌计分小程，微信搜索:毛线家的计分器，大家可以扫码支持一波
 
 ![countGame](doc/img/countGame.png)
 
