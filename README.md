@@ -99,7 +99,7 @@
 
 
 
-#### 资源菜单联动如何使用
+#### 接口资源权限如何使用
 > admin角色系统默认会拥有所有资源权限，逻辑可自己修改
 
 在相应接口上添加 @SaCheckPermission(”resourceCode“),系统默认只拦截/rest下的接口信息，可在WxMvcConfig#addInterceptors中进行修改拦截的路径信息
