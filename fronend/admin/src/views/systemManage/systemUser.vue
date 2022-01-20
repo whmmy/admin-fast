@@ -188,7 +188,7 @@ import authApi from '@/api/auth'
 import { parseTime } from '@/utils'
 import { haveRole } from '@/utils/auth'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import userCompanyIdApi from '@/api/userCompany'
+import userCompanyApi from '@/api/userCompany'
 export default {
   name: 'Systemuser',
   components: { Pagination },
@@ -406,7 +406,7 @@ export default {
       })
     },
     getAllCompany() {
-      userCompanyIdApi.listAll().then(res => {
+      userCompanyApi.listAll().then(res => {
         this.allCompanyList = res.value.list
       })
     },

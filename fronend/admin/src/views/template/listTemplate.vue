@@ -35,19 +35,9 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="公司名称" align="center">
+      <el-table-column label="名称" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="地址" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.address }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="联系人" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.contactName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="250px">
@@ -75,7 +65,7 @@
         label-width="15%"
         style="width: 100%;"
       >
-        <el-form-item label="公司名称" prop="name" required>
+        <el-form-item label="名称" prop="name" required>
           <el-input
             v-model="temp.name"
             placeholder="请输入标题"
@@ -83,40 +73,6 @@
             clearable
           />
         </el-form-item>
-        <el-form-item label="公司地址" prop="address" required>
-          <el-input
-            v-model="temp.address"
-            placeholder="请输入公司地址"
-            style="width: 85%;"
-            clearable
-          />
-        </el-form-item>
-        <el-form-item label="联系人名称" prop="contactName" required>
-          <el-input
-            v-model="temp.contactName"
-            placeholder="请输入标题"
-            style="width: 85%;"
-            clearable
-          />
-        </el-form-item>
-        <el-form-item label="联系方式" prop="contactPhone" required>
-          <el-input
-            v-model="temp.contactPhone"
-            placeholder="请输入标题"
-            style="width: 85%;"
-            clearable
-          />
-        </el-form-item>
-
-        <el-form-item label="备注" prop="remark">
-          <el-input
-            v-model="temp.remark"
-            placeholder="备选字段"
-            style="width: 85%;"
-            clearable
-          />
-        </el-form-item>
-
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -129,7 +85,7 @@
   </div>
 </template>
 <script>
-import userCompanyApi from '@/api/userCompany'
+import templateApi from '@/api/template'
 import Pagination from '@/components/Pagination'
 export default {
   components: {
@@ -171,7 +127,7 @@ export default {
       this.getList()
     },
     getList() {
-      userCompanyApi.list(this.listQuery).then(res => {
+      templateApi.list(this.listQuery).then(res => {
         const pageData = res.value.page
         this.list = pageData.list
         this.total = pageData.total
@@ -187,7 +143,7 @@ export default {
     createConfig() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          userCompanyApi.create(this.temp).then(res => {
+          templateApi.create(this.temp).then(res => {
             this.$message.success('保存成功')
             this.dialogFormVisible = false
             this.getList()
@@ -198,7 +154,7 @@ export default {
     editConfig() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          userCompanyApi.update(this.temp).then(res => {
+          templateApi.update(this.temp).then(res => {
             this.$message.success('修改成功')
             this.dialogFormVisible = false
             this.getList()
@@ -218,12 +174,12 @@ export default {
       this.dialogFormVisible = true
     },
     del(row) {
-      this.$confirm('是否删除该公司配置?', '提示', {
+      this.$confirm('是否删除该项目?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        userCompanyApi.delete(row.id).then(res => {
+        templateApi.delete(row.id).then(res => {
           this.getList()
         })
       }).catch(() => {})
@@ -231,6 +187,6 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 
 </style>

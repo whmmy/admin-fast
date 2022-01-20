@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-const baseUrl = '/company'
+const baseUrl = '/template'
 
 export default {
   create(data) {
@@ -18,7 +18,7 @@ export default {
   },
   delete(id) {
     return request({
-      url: baseUrl + '/softdel?id=' + id,
+      url: baseUrl + `/del?id=${id}`,
       method: 'post'
     })
   },
@@ -27,12 +27,6 @@ export default {
       url: baseUrl + '/list',
       method: 'get',
       params
-    })
-  },
-  listAll() {
-    return request({
-      url: baseUrl + '/all',
-      method: 'get'
     })
   }
 }
