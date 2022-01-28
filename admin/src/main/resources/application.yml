@@ -24,7 +24,7 @@ spring:
       request-timeout: 120000
 mybatis:
   mapper-locations: classpath*:mybatis/mysql/**/*Mapper.xml
-  type-aliases-package: fun.whmy.count.model.bean
+  type-aliases-package: fun.whmy.adminfast.admin.model.bean
   configuration:
     map-underscore-to-camel-case: true
     default-fetch-size: 100
