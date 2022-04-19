@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
-@ServletComponentScan("fun.whmy.star.starback")
+@ServletComponentScan("fun.whmy.adminfast.admin")
 @SpringBootApplication
 public class AdminApplication {
 
