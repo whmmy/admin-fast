@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import fun.whmy.adminfast.admin.model.basic.ResultBean;
 import fun.whmy.adminfast.admin.model.bean.admin.TbUserBean;
 import fun.whmy.adminfast.admin.model.constant.ErrorCode;
-import fun.whmy.adminfast.admin.model.dto.MsLoginParam;
+import fun.whmy.adminfast.admin.model.dto.login.MsLoginParam;
 import fun.whmy.adminfast.admin.service.TbUserService;
 import fun.whmy.adminfast.admin.utils.PublicKeyMap;
 import fun.whmy.adminfast.admin.utils.RSAUtils;
@@ -68,19 +68,12 @@ public class LoginController {
         String password = RSAUtils.decryptStringByJs(user.getPassword(), module);
 
         //判断密码是否正确
-//        String checkPsw = LoginUtils.decodePsw(sysUser.getPassword());
-//        String inputPsw = LoginUtils.decodePsw(user.getPassword());
-
         if (!password.equals(sysUser.getPassword())) {
             log.error("login，login error password is error");
             ret.setCode(ErrorCode.ERROR);
             ret.setMsg("登录错误，当前用户名或密码错误");
             return ret;
         }
-//        String token = LoginUtils.generateToken();
-//        OnlineUserInfo userInfo = OnlineUserInfo.builder().openId(sysUser.getRemark()).userId(sysUser.getUserId()).userRole(sysUser.getRole()).clientType(2).build();
-//        MsUserData.setUserInfoToRedis(token, userInfo);
-
         StpUtil.login(sysUser.getUserId());
         final SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         final SaSession session = StpUtil.getSession();

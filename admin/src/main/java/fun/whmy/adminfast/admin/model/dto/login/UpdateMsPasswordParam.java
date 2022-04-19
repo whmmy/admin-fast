@@ -1,4 +1,4 @@
-package fun.whmy.adminfast.admin.model.dto;
+package fun.whmy.adminfast.admin.model.dto.login;
 
 import lombok.Data;
 

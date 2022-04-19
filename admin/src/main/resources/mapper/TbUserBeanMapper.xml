@@ -25,7 +25,7 @@
         left join tb_user_company c on c.id = u.COMPANY_ID
         where 1=1
         <if test="companyId != 0">
-            u.COMPANY_ID = #{companyId}
+            AND u.COMPANY_ID = #{companyId}
         </if>
         <if test="keyword != null and keyword != ''">
             AND u.USER_NAME LIKE CONCAT('%', #{keyword}, '%') ESCAPE '/'

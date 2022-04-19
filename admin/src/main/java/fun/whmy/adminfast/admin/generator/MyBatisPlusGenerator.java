@@ -110,6 +110,7 @@ public class MyBatisPlusGenerator {
         //可以对controller、service、entity模板进行配置
         //mapper.xml模板需单独配置
         templateConfig.setXml(null);
+        templateConfig.setController("");
         return templateConfig;
     }
 

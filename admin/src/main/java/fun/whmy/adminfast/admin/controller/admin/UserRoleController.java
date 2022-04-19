@@ -15,7 +15,6 @@ import fun.whmy.adminfast.admin.model.constant.AdminRole;
 import fun.whmy.adminfast.admin.model.constant.ErrorCode;
 import fun.whmy.adminfast.admin.service.TbUserResourceService;
 import fun.whmy.adminfast.admin.service.TbUserRoleService;
-import fun.whmy.adminfast.admin.service.TbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,6 +99,23 @@ public class UserRoleController extends AbstractBaseController {
         LambdaQueryWrapper<TbUserRoleBean> lambda = queryWrapper.lambda();
         lambda.eq(TbUserRoleBean::getCompanyId, companyId);
         List<TbUserRoleBean> roleList = roleService.list(queryWrapper);
+        //获取当前用户角色信息 并添加至roleList中 可以查询本公司 及其 当前用户的角色信息
+//        List<TbUserRoleBean> userRoleList = roleService.getRoleList(getCurrentUserId());
+//        List<TbUserRoleBean> result = new LinkedList<>();
+//        for (TbUserRoleBean ur : userRoleList) {
+//            boolean match = false;
+//            for (TbUserRoleBean r : roleList) {
+//                if (ur.getId() == r.getId()) {
+//                    match = true;
+//                    break;
+//                }
+//            }
+//            if (match) {
+//                continue;
+//            }
+//            result.add(ur);
+//        }
+//        result.addAll(roleList);
         ret.addEntry("role", roleList);
         return ret;
     }
@@ -112,16 +128,17 @@ public class UserRoleController extends AbstractBaseController {
                            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         ResultBean ret = new ResultBean();
         final Long companyId = getCurrentCompanyId();
-        Page<TbUserRoleBean> roleList = roleService.list(keyword, pageSize, pageNum,companyId);
+        Page<TbUserRoleBean> roleList = roleService.list(keyword, pageSize, pageNum, companyId);
         ret.addEntry("page", CommonPage.restPage(roleList));
         return ret;
     }
+
     @SaCheckPermission(AdminRole.SYSTEM_MANAGER_ROLE)
     @PostMapping("/updateStatus/{id}")
     public ResultBean updateStatus(@PathVariable Long id, @RequestParam(value = "status") Integer status) {
         TbUserRoleBean bean = roleService.getById(id);
         final Long companyId = getCurrentCompanyId();
-        if (companyId.longValue() != bean.getCompanyId()  && companyId != 0) {
+        if (companyId.longValue() != bean.getCompanyId() && companyId != 0) {
             return fail(ErrorCode.ERROR, "此角色不能被此用户修改");
         }
         TbUserRoleBean umsRole = new TbUserRoleBean();

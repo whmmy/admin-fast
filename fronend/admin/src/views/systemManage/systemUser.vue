@@ -171,7 +171,7 @@
     </el-dialog>
 
     <el-dialog title="分配角色" :visible.sync="allocDialogVisible" width="30%">
-      <el-select v-model="allocRoleIds" multiple placeholder="请选择" size="small" style="width: 80%">
+      <el-select v-model="allocRoleIds" multiple placeholder="请选择" size="small" style="width: 80%" @remove-tag="removeRole">
         <el-option v-for="item in showRoleList" :key="item.id" :label="item.name" :value="item.id" :disabled="item.sort == 0" />
       </el-select>
       <span slot="footer" class="dialog-footer">
@@ -339,6 +339,7 @@ export default {
         }
       })
     },
+
     handleUpdate(row) {
       this.editTemp = {
         userId: row.userId,
@@ -438,6 +439,18 @@ export default {
         })
         console.log(this.showRoleList)
       })
+    },
+    removeRole(roleId) {
+      let role = null
+      for (var i = 0; i < this.allRoleList.length; i++) {
+        if (this.allRoleList[i].id === roleId) {
+          role = this.allRoleList[i]
+          break
+        }
+      }
+      if (role != null && role.sort === 0) {
+        this.allocRoleIds.push(roleId)
+      }
     },
     handleAllocDialogConfirm() {
       this.$confirm('是否要确认?', '提示', {
