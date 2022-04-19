@@ -28,6 +28,7 @@
       border
       fit
       highlight-current-row
+      height="100%"
       style="width: 100%;"
     >
       <el-table-column label="编号" align="center" width="100px">
@@ -40,10 +41,10 @@
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="250px">
+      <el-table-column label="操作" align="center" fixed="right" width="250px">
         <template slot-scope="{row}">
-          <el-button type="primary" size="small" @click="edit(row)">修改</el-button>
-          <el-button type="danger" size="small" @click="del(row)">删除</el-button>
+          <el-button type="text" size="small" @click="edit(row)">修改</el-button>
+          <el-button type="text" size="small" @click="del(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

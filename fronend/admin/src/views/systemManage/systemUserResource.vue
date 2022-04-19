@@ -24,58 +24,59 @@
         @click="handleBack"
       >返回上级</el-button>
     </div>
+    <div class="tableContainer">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        height="100%"
+        style="width: 100%;"
+      >
+        <el-table-column label="序号" align="center" min-width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.id }}</span>
+          </template>
+        </el-table-column>
 
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="序号" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.id }}</span>
-        </template>
-      </el-table-column>
+        <el-table-column label="资源/菜单名称" align="center" min-width="150">
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column label="资源/菜单名称" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+        <el-table-column label="资源类型" align="center" min-width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.type | resourceTypeFilter }}</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column label="资源类型" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.type | resourceTypeFilter }}</span>
-        </template>
-      </el-table-column>
+        <el-table-column label="资源编码" align="center" min-width="150">
+          <template slot-scope="{row}">
+            <span>{{ row.code === ""?'-': row.code }}</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column label="资源编码" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.code === ""?'-': row.code }}</span>
-        </template>
-      </el-table-column>
+        <el-table-column label="排序" align="center" min-width="50">
+          <template slot-scope="{row}">
+            <span>{{ row.sort }}</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column label="排序" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.sort }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="{row}">
-          <el-button size="small" @click="showNextLevel(row)">查看下级</el-button>
-          <el-button type="primary" size="small" @click="handleUpdate(row)">编辑</el-button>
-          <el-button
-            size="small"
-            type="danger"
-            @click="handleDelete(row)"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" fixed="right" width="200px">
+          <template slot-scope="{row}">
+            <el-button type="text" size="small" @click="showNextLevel(row)">查看下级</el-button>
+            <el-button type="text" size="small" @click="handleUpdate(row)">编辑</el-button>
+            <el-button
+              size="small"
+              type="text"
+              @click="handleDelete(row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <pagination
       v-show="total>0"
       :total="total"

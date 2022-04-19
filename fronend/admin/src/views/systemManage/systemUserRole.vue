@@ -24,51 +24,52 @@
         @click="handleCreate"
       >增加</el-button>
     </div>
-
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="序号" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.id }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="角色名称" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="角色编码" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.code }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="描述" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.description }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="{row}">
-          <template v-if="row.code != 'admin'">
-            <el-button size="small" @click="handleSelectResource(row)">分配资源</el-button>
-            <el-button type="primary" size="small" @click="handleUpdate(row)">编辑</el-button>
-            <el-button v-if="row.status == 1" size="small" type="danger" @click="handleUpdateStatus(row,0)">禁用</el-button>
-            <el-button v-if="row.status == 0" size="small" type="success" @click="handleUpdateStatus(row,1)">启用</el-button>
+    <div class="tableContainer">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        height="100%"
+        style="width: 100%;"
+      >
+        <el-table-column label="序号" align="center" min-width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.id }}</span>
           </template>
-          <template v-else>
-            超级管理无法修改
-          </template>
-        </template>
-      </el-table-column>
-    </el-table>
+        </el-table-column>
 
+        <el-table-column label="角色名称" align="center" min-width="120">
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="角色编码" align="center" min-width="120">
+          <template slot-scope="{row}">
+            <span>{{ row.code }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="描述" align="center" min-width="150">
+          <template slot-scope="{row}">
+            <span>{{ row.description }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" fixed="right" width="200px">
+          <template slot-scope="{row}">
+            <template v-if="row.code != 'admin'">
+              <el-button type="text" size="small" @click="handleSelectResource(row)">分配资源</el-button>
+              <el-button type="text" size="small" @click="handleUpdate(row)">编辑</el-button>
+              <el-button v-if="row.status == 1" size="small" type="text" @click="handleUpdateStatus(row,0)">禁用</el-button>
+              <el-button v-if="row.status == 0" size="small" type="text" @click="handleUpdateStatus(row,1)">启用</el-button>
+            </template>
+            <template v-else>
+              超级管理无法修改
+            </template>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <pagination
       v-show="total>0"
       :total="total"

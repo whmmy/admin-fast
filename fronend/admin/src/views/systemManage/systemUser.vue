@@ -25,51 +25,52 @@
         @click="handleCreate"
       >增加</el-button>
     </div>
+    <div class="tableContainer">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        height="100%"
+        style="width: 100%;"
+      >
+        <el-table-column label="序号" align="center" min-width="100">
+          <template slot-scope="{row}">
+            <span>{{ row.userId }}</span>
+          </template>
+        </el-table-column>
 
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="序号" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.userId }}</span>
-        </template>
-      </el-table-column>
+        <el-table-column label="用户名" align="center" min-width="150">
+          <template slot-scope="{row}">
+            <span>{{ row.userName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="所属公司" align="center" min-width="150">
+          <template slot-scope="{row}">
+            <span>{{ row.companyId == 0 ? '全局账号':row.companyName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="更新时间" align="center" min-width="200">
+          <template slot-scope="{row}">
+            <span>{{ row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+          </template>
+        </el-table-column>
 
-      <el-table-column label="用户名" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.userName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属公司" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.companyId == 0 ? '全局账号':row.companyName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="更新时间" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="{row}">
-          <el-button v-if="haveRole('managerUserEdit')" size="small" @click="handleSelectRole(row)">分配角色</el-button>
-          <el-button type="primary" size="small" @click="handleUpdate(row)">编辑</el-button>
-          <el-button
-            v-if="haveRole('managerUserEdit')"
-            size="small"
-            type="danger"
-            @click="handleDelete(row)"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" fixed="right" width="200px">
+          <template slot-scope="{row}">
+            <el-button v-if="haveRole('managerUserEdit')" size="small" type="text" @click="handleSelectRole(row)">分配角色</el-button>
+            <el-button type="text" size="small" @click="handleUpdate(row)">编辑</el-button>
+            <el-button
+              v-if="haveRole('managerUserEdit')"
+              size="small"
+              type="text"
+              @click="handleDelete(row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <pagination
       v-show="total>0"
       :total="total"

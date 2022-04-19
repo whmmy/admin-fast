@@ -22,42 +22,43 @@
         @click="handleCreate"
       >增加</el-button>
     </div>
-
-    <el-table
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column label="编号" align="center" width="100px">
-        <template slot-scope="{row}">
-          <span>{{ row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="公司名称" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="地址" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.address }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="联系人" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.contactName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" width="250px">
-        <template slot-scope="{row}">
-          <el-button type="primary" size="small" @click="edit(row)">修改</el-button>
-          <el-button type="danger" size="small" @click="del(row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
+    <div class="tableContainer">
+      <el-table
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        height="100%"
+        style="width: 100%;"
+      >
+        <el-table-column label="编号" align="center" width="100px">
+          <template slot-scope="{row}">
+            <span>{{ row.id }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="公司名称" align="center" min-width="150">
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="地址" align="center" min-width="200">
+          <template slot-scope="{row}">
+            <span>{{ row.address }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="联系人" align="center" min-width="120">
+          <template slot-scope="{row}">
+            <span>{{ row.contactName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" fixed="right" width="200px">
+          <template slot-scope="{row}">
+            <el-button type="primary" size="small" @click="edit(row)">修改</el-button>
+            <el-button type="danger" size="small" @click="del(row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <pagination
       v-show="total > 0"
       :total="total"

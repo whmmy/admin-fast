@@ -61,5 +61,19 @@ div:focus {
 
 // main-container global css
 .app-container {
+  width:100%;
   padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex:1 1 auto;
+  overflow: hidden;
+}
+
+.app-container .tableContainer{
+  display: flex;
+  flex-direction: column;
+  flex:1 1 auto;
+  overflow: hidden;
+  margin-bottom: 0;
 }
