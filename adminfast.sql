@@ -41,7 +41,7 @@ CREATE TABLE `tb_user`  (
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES (1, 'admin', 'f6fdffe48c908deb0f4c3bd36c032e72', NULL, 'admin', 1, '7354c689af554f53bd2d5f30607ac2e6', 0, NULL, 0, 1, 1, '2021-10-21 14:15:32', '2021-10-21 14:15:32');
+INSERT INTO `tb_user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', NULL, 'admin', 1, '7354c689af554f53bd2d5f30607ac2e6', 0, NULL, 0, 1, 1, '2021-10-21 14:15:32', '2021-10-21 14:15:32');
 
 -- ----------------------------
 -- Table structure for tb_user_company
